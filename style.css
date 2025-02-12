@@ -1,0 +1,109 @@
+/* =========================
+   (A) Grundlayout
+   ========================= */
+
+/* Body */
+   html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+    /* Zentrierung */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  /* Der Container ist "responsive" */
+  #swipe-container {
+    /* 
+       Passt sich in der Breite an.
+    */
+    width: 100%;
+    max-width: 1440px;        /* optional Obergrenze */
+    aspect-ratio: 4 / 3;      /* optionales Seitenverhältnis (4:3 oder 16:9 etc.) */
+  
+    position: relative;
+    margin: 0 auto;           /* zentriert horizontal */
+    overflow: hidden;         /* kein Scrollen im Container */
+    background: #f0f0f0;      /* nur zur Sichtbarkeit */
+  }
+  
+  /* =========================
+     (B) Layer (Bilder)
+     ========================= */
+  .layer {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-size: cover; /* kein Verzerren, aber Ausfüllen */
+    clip: rect(0, 100%, 100%, 0); /* JS überschreibt dynamisch */
+  }
+  
+  #layer1 {
+    background-image: url("Bild1.jpg");
+    z-index: 1;
+  }
+  #layer2 {
+    background-image: url("Bild2.jpg");
+    z-index: 2;
+  }
+  #layer3 {
+    background-image: url("Bild3.jpg");
+    z-index: 3;
+  }
+  
+  /* =========================
+     (C) Griffe
+     ========================= */
+  /* Jeder Griff ist eine schmale Box (40px breit, 100% hoch).
+     Wir verschieben sie horizontal im JS via handleX. */
+  .handle {
+    position: absolute;
+    top: 0;
+    width: 40px;     /* Feste Griff-Breite */
+    height: 100%;
+    background: transparent;
+    cursor: ew-resize;
+    /* Der z-index wird im JS dynamisch gesetzt. */
+  }
+  
+  /* Der senkrechte Balken (3px), 
+     zentriert in der 40px-Box */
+  .handle-bar {
+    position: absolute;
+    top: 0;
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 3px;
+    height: 100%;
+    background: #000;
+    pointer-events: none;
+  }
+  
+  /* Kreis in der Mitte */
+  .handle-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    color: #000;
+    font-size: 20px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  
+  .handle-circle::before {
+    content: "◀ ▶"; /* Symbol */
+  }
+  
